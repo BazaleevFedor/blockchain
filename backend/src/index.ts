@@ -14,6 +14,12 @@ app.use(express.json());
 
 /** генерация задания */
 app.get('/get-task', async (req, res) => {
+    if (1) {
+        res.json({ task: 'test task' });
+
+        return;
+    }
+
     const type = req.query.type || 'frontend';
     const prompt = `
         Придумай очень простое практическое задание для разработчика на тему "${type}".
@@ -36,6 +42,12 @@ app.get('/get-task', async (req, res) => {
 
 /** проверка решения */
 app.post('/verify-task', async (req, res) => {
+    if (1) {
+        res.json({ result: 90 });
+
+        return;
+    }
+
     const { task, solution } = req.body;
     const prompt = `
         Вот задание:

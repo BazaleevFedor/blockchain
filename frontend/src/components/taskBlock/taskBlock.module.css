@@ -1,3 +1,35 @@
-.footer {
+.taskBlock {
+    display: grid;
+    margin-top: 16px;
+    padding: 0 40px;
+}
 
+.task {
+    padding: 20px;
+    min-height: 150px;
+    border: solid 1px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+
+.userCode {
+    padding: 20px;
+    min-width: 100%;
+    min-height: 150px;
+    border: solid 1px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+
+.button {
+    padding: 10px;
+    border-radius: 12px;
+    border: solid 1px;
+    margin-left: auto;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.42);
+        color: white;
+    }
 }
