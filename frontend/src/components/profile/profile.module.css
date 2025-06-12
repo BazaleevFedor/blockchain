@@ -1,0 +1,19 @@
+.profile {
+    .balance {
+        display: none;
+    }
+
+    .title {
+        display: block;
+    }
+
+    &:hover {
+        .balance {
+            display: block;
+        }
+
+        .title {
+            display: none;
+        }
+    }
+}

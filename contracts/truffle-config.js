@@ -1,14 +1,16 @@
 module.exports = {
     networks: {
-        development: {
-            host: "127.0.0.1", // Ganache
+        ganache: {
+            host: "127.0.0.1",
             port: 7545,
-            network_id: "*" // любой ID
+            network_id: "*",
+            chain_id: 1337
         }
     },
     compilers: {
         solc: {
-            version: "0.8.20"
+            version: "0.8.19"
         }
     }
 };
+

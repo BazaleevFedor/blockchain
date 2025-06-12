@@ -57,26 +57,37 @@ contract ERC20 is IERC20 {
         balanceOf[to] += amount;
         emit Transfer(address(0), to, amount);
     }
+
+    function _burn(address from, uint256 amount) internal {
+        require(balanceOf[from] >= amount, "Insufficient balance to burn");
+        balanceOf[from] -= amount;
+        totalSupply -= amount;
+        emit Transfer(from, address(0), amount);
+    }
 }
 
 contract SkillToken is ERC20 {
-    address public owner;
+    uint constant _initial_supply = 1000000;
+    string constant _name = "Skill Token";
+    string constant _symbol = "SKILL";
+    uint8 constant _decimals = 0;
 
-    constructor() ERC20("Skill Token", "SKILL", 0) {
-        owner = msg.sender;
+    constructor() payable ERC20(_name, _symbol, _decimals) {
+        _mint(address(this), _initial_supply);
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only owner");
-        _;
+    /// @notice перевод токенов юзеру
+    function rewardUser(address user, uint256 amount) external {
+        require(balanceOf[address(this)] >= amount, "Insufficient tokens in contract");
+
+        balanceOf[address(this)] -= amount;
+
+        balanceOf[user] += amount;
+
+        emit Transfer(address(this), user, amount);
     }
 
-    /// @notice Админ вызывает функцию, чтобы начислить токены пользователю
-    function rewardUser(address user, uint256 amount) external onlyOwner {
-        _mint(user, amount);
-    }
-
-    /// @notice Пользователь может посмотреть свой баланс
+    /// @notice получение баланса юзера
     function getMyPoints() external view returns (uint256) {
         return balanceOf[msg.sender];
     }

@@ -12,9 +12,11 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 app.use(cors());
 app.use(express.json());
 
+const needMockApi = false;
+
 /** генерация задания */
 app.get('/get-task', async (req, res) => {
-    if (1) {
+    if (needMockApi) {
         res.json({ task: 'test task' });
 
         return;
@@ -42,7 +44,7 @@ app.get('/get-task', async (req, res) => {
 
 /** проверка решения */
 app.post('/verify-task', async (req, res) => {
-    if (1) {
+    if (needMockApi) {
         res.json({ result: 90 });
 
         return;
@@ -75,5 +77,5 @@ app.post('/verify-task', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`✅ Backend запущен на http://localhost:${PORT}`);
+    console.log(`Backend запущен на http://localhost:${PORT}`);
 });

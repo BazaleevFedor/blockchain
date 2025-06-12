@@ -1,5 +1,6 @@
 import styles from './header.module.css';
 import {FC} from "react";
+import {Profile} from "@/components/profile/Profile";
 
 const TASK_TYPES = [
     'frontend',
@@ -13,10 +14,11 @@ const TASK_TYPES = [
 
 type HeaderProps = {
     taskType: string;
+    balance: number;
     setTaskType: (type: string) => void;
 }
 
-export const Header: FC<HeaderProps> = ({ taskType, setTaskType }) => {
+export const Header: FC<HeaderProps> = ({ taskType, setTaskType, balance }) => {
     const handleChange = (e: any) => {
         setTaskType(e.target.value);
     };
@@ -33,7 +35,9 @@ export const Header: FC<HeaderProps> = ({ taskType, setTaskType }) => {
                 ) }
             </select>
 
-            <div className={styles.profile}>profile</div>
+            <div className={styles.profile}>
+                <Profile balance={balance} />
+            </div>
         </div>
     );
 }
