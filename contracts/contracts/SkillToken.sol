@@ -76,6 +76,16 @@ contract SkillToken is ERC20 {
         _mint(address(this), _initial_supply);
     }
 
+    /// @notice списание токенов у пользователя в пользу контракта
+    function deductFromUser(address user, uint256 amount) external {
+        require(balanceOf[user] >= amount, "Insufficient user balance");
+
+        balanceOf[user] -= amount;
+        balanceOf[address(this)] += amount;
+
+        emit Transfer(user, address(this), amount);
+    }
+
     /// @notice перевод токенов юзеру
     function rewardUser(address user, uint256 amount) external {
         require(balanceOf[address(this)] >= amount, "Insufficient tokens in contract");

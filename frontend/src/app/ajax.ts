@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import {ethers} from 'ethers';
 import SkillTokenAbi from '../../public/SkillToken.json';
 
 class Ajax {
@@ -7,7 +7,7 @@ class Ajax {
     provider?: ethers.providers.Web3Provider;
     signer?: ethers.Signer;
     contract?: ethers.Contract;
-    contractAddress: string = '0xf68e4cc186eF33421DA16e9370610ae74cD21f1f';
+    contractAddress: string = '0x7f2A0d33B117c65732E410af9F6439BbA815dE18';
 
     constructor() {
         this.backendUrl = 'http://localhost:8000';
@@ -86,6 +86,23 @@ class Ajax {
         } catch (err) {
             console.error('Ошибка при начислении токенов:', err);
         }
+    }
+
+    async deductFromUser(amount: number): Promise<void> {
+        try {
+            const address = await this.signer?.getAddress();
+
+            const tx = await this.contract?.deductFromUser(address, amount);
+            await tx.wait();
+
+            alert(`Снято ${amount} токенов у ${address}`);
+        } catch (err) {
+            throw new Error(`Ошибка при снятии токенов: ${err}`);
+        }
+    }
+
+    async getUserAddress() {
+        return this.signer?.getAddress();
     }
 }
 

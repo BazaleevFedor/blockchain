@@ -1,6 +1,5 @@
 "use client"
 
-import styles from './home.module.css'
 import {useEffect, useState} from "react";
 import ajax from "@/app/ajax";
 
@@ -46,7 +45,7 @@ export default function Home() {
     }, [taskType]);
 
     return (
-        <div className={styles.home}>
+        <div>
             <Header taskType={taskType} balance={balance} setTaskType={setTaskType}/>
 
             <TaskBlock task={task} solution={solution} setSolution={setSolution} onSendSolution={onSendSolution} />

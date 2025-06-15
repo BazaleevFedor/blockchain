@@ -1,9 +1,18 @@
 .profile {
+    min-width: 120px;
+
     .balance {
+        text-align: right;
         display: none;
+
+        &::before {
+            content: '💎';
+            font-size: 1.1em;
+        }
     }
 
     .title {
+        text-align: right;
         display: block;
     }
 

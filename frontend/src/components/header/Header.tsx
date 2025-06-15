@@ -1,6 +1,7 @@
 import styles from './header.module.css';
 import {FC} from "react";
 import {Profile} from "@/components/profile/Profile";
+import Link from "next/link";
 
 const TASK_TYPES = [
     'frontend',
@@ -34,6 +35,8 @@ export const Header: FC<HeaderProps> = ({ taskType, setTaskType, balance }) => {
                     <option key={index} value={type}>{type}</option>)
                 ) }
             </select>
+
+            <Link className={styles.link} href="/certificates">Перейти к сертификатам</Link>
 
             <div className={styles.profile}>
                 <Profile balance={balance} />
