@@ -1,18 +1,32 @@
 import {ethers} from 'ethers';
 import SkillTokenAbi from '../../public/SkillToken.json';
 
+const IS_AUTH_USER_KEY = 'skill-token-is-auth';
+
 class Ajax {
     backendUrl: string;
 
     provider?: ethers.providers.Web3Provider;
     signer?: ethers.Signer;
     contract?: ethers.Contract;
-    contractAddress: string = '0x7f2A0d33B117c65732E410af9F6439BbA815dE18';
+    contractAddress: string = '0x6132D269cA452ef8dB3545cb5b03f6C798D2D631';
 
     constructor() {
         this.backendUrl = 'http://localhost:8000';
 
         this.connectWallet();
+    }
+
+    isAuth() {
+        return JSON.parse(localStorage.getItem(IS_AUTH_USER_KEY) || 'false');
+    }
+
+    signIn() {
+        localStorage.setItem(IS_AUTH_USER_KEY, JSON.stringify(true));
+    }
+
+    signOut() {
+        localStorage.setItem(IS_AUTH_USER_KEY, JSON.stringify(false));
     }
 
     async connectWallet() {
@@ -102,7 +116,21 @@ class Ajax {
     }
 
     async getUserAddress() {
-        return this.signer?.getAddress();
+        console.log();
+        if ((window as any).ethereum) {
+            try {
+                const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+                const signer = provider.getSigner();
+
+                return await signer.getAddress();
+            } catch (error) {
+                console.error('Ошибка при получении адреса:', error);
+                return 'кошелек не обнаружен';
+            }
+        } else {
+            console.error('Ошибка при получении адреса:');
+            return 'кошелек не обнаружен';
+        }
     }
 }
 

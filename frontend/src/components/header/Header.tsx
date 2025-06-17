@@ -17,9 +17,10 @@ type HeaderProps = {
     taskType: string;
     balance: number;
     setTaskType: (type: string) => void;
+    onSignOut: () => void;
 }
 
-export const Header: FC<HeaderProps> = ({ taskType, setTaskType, balance }) => {
+export const Header: FC<HeaderProps> = ({ taskType, setTaskType, balance, onSignOut }) => {
     const handleChange = (e: any) => {
         setTaskType(e.target.value);
     };
@@ -38,9 +39,7 @@ export const Header: FC<HeaderProps> = ({ taskType, setTaskType, balance }) => {
 
             <Link className={styles.link} href="/certificates">Перейти к сертификатам</Link>
 
-            <div className={styles.profile}>
-                <Profile balance={balance} />
-            </div>
+            <Profile balance={balance} onSignOut={onSignOut} />
         </div>
     );
 }

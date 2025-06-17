@@ -1,13 +1,29 @@
-.profile {
+.profileWrapper {
+    position: relative;
     min-width: 120px;
+    margin: auto 0;
 
-    .balance {
-        text-align: right;
+    .profile {
+        position: absolute;
+        margin: -10px;
+        padding: 10px;
+        border: solid 1px;
+        background: #fff;
+        border-radius: 10px;
         display: none;
 
-        &::before {
-            content: '💎';
-            font-size: 1.1em;
+        .balance {
+            text-align: right;
+
+            &::before {
+                content: '💎';
+                font-size: 1.1em;
+            }
+        }
+
+        .signOut {
+            margin: auto;
+            display: block;
         }
     }
 
@@ -17,7 +33,7 @@
     }
 
     &:hover {
-        .balance {
+        .profile {
             display: block;
         }
 
