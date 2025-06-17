@@ -67,13 +67,21 @@ contract ERC20 is IERC20 {
 }
 
 contract SkillToken is ERC20 {
+    address public owner;
     uint constant _initial_supply = 1000000;
     string constant _name = "Skill Token";
     string constant _symbol = "SKILL";
     uint8 constant _decimals = 0;
 
     constructor() payable ERC20(_name, _symbol, _decimals) {
+        owner = msg.sender;
+
         _mint(address(this), _initial_supply);
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can call this function");
+        _;
     }
 
     /// @notice списание токенов у пользователя в пользу контракта
@@ -87,7 +95,7 @@ contract SkillToken is ERC20 {
     }
 
     /// @notice перевод токенов юзеру
-    function rewardUser(address user, uint256 amount) external {
+    function rewardUser(address user, uint256 amount) external onlyOwner {
         require(balanceOf[address(this)] >= amount, "Insufficient tokens in contract");
 
         balanceOf[address(this)] -= amount;

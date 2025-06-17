@@ -91,12 +91,35 @@ class Ajax {
 
     async rewardUser(amount: number): Promise<void> {
         try {
-            const address = await this.signer?.getAddress();
+            const url = `${this.backendUrl}/reward-user`;
 
-            const tx = await this.contract?.rewardUser(address, amount);
-            await tx.wait();
+            const address = await this.signer?.getAddress()
 
-            alert(`Начислено ${amount} токенов для ${address}`);
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userAddress: address,
+                    amount: amount,
+                })
+            });
+
+            if (!response.ok) {
+                console.error('Ошибка при начислении токенов:', response);
+                return;
+            }
+
+            const data = await response.json();
+
+            if (data.success === true) alert(`Начислено ${amount} токенов для ${address}`);
+            else console.error('Ошибка при начислении токенов');
+
+            // const address = await this.signer?.getAddress();
+            //
+            // const tx = await this.contract?.rewardUser(address, amount);
+            // await tx.wait();
+
+            // alert(`Начислено ${amount} токенов для ${address}`);
         } catch (err) {
             console.error('Ошибка при начислении токенов:', err);
         }
