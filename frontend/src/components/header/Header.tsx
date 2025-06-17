@@ -15,12 +15,13 @@ const TASK_TYPES = [
 
 type HeaderProps = {
     taskType: string;
+    address: string;
     balance: number;
     setTaskType: (type: string) => void;
     onSignOut: () => void;
 }
 
-export const Header: FC<HeaderProps> = ({ taskType, setTaskType, balance, onSignOut }) => {
+export const Header: FC<HeaderProps> = ({ taskType, setTaskType, balance, address, onSignOut }) => {
     const handleChange = (e: any) => {
         setTaskType(e.target.value);
     };
@@ -39,7 +40,7 @@ export const Header: FC<HeaderProps> = ({ taskType, setTaskType, balance, onSign
 
             <Link className={styles.link} href="/certificates">Перейти к сертификатам</Link>
 
-            <Profile balance={balance} onSignOut={onSignOut} />
+            <Profile balance={balance} address={address} onSignOut={onSignOut} />
         </div>
     );
 }

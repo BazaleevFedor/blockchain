@@ -10,6 +10,7 @@ import { AuthPopup } from "@/components/authPopup/AuthPopup";
 export default function Home() {
     const [task, setTask] = useState<string>('');
     const [balance, setBalance] = useState<number>(0);
+    const [address, setAddress] = useState<string>('');
     const [solution, setSolution] = useState<string>('');
     const [taskType, setTaskType] = useState<string>('frontend');
     const [showAuthPopup, setShowAuthPopup] = useState<boolean>(false);
@@ -36,18 +37,26 @@ export default function Home() {
         updateBalance();
     }
 
+    const updateAuthInfo = async () => {
+        const isAuth =  ajax.isAuth();
+        const address =  await ajax.getUserAddress();
+
+        setShowAuthPopup(!isAuth);
+        setAddress(address);
+    }
+
     const handleCloseAuthPopup = () => {
-        setShowAuthPopup(false);
+        updateAuthInfo();
     }
 
     const handleSignOut = () => {
         ajax.signOut();
 
-        setShowAuthPopup(true);
+        updateAuthInfo();
     }
 
     useEffect(() => {
-        setShowAuthPopup(!ajax.isAuth());
+        updateAuthInfo();
 
         updateTask();
 
@@ -60,7 +69,7 @@ export default function Home() {
 
     return (
         <div>
-            <Header taskType={taskType} balance={balance} setTaskType={setTaskType} onSignOut={handleSignOut}/>
+            <Header taskType={taskType} address={address} balance={balance} setTaskType={setTaskType} onSignOut={handleSignOut}/>
 
             <TaskBlock task={task} solution={solution} setSolution={setSolution} onSendSolution={onSendSolution} />
 

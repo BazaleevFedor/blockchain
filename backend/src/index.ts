@@ -15,7 +15,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 app.use(cors());
 app.use(express.json());
 
-const needMockApi = true;
+const needMockApi = false;
 
 /** генерация задания */
 app.get('/get-task', async (req, res) => {

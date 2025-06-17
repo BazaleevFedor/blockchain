@@ -11,6 +11,8 @@
         background: #fff;
         border-radius: 10px;
         display: none;
+        width: 150px;
+        left: -10px;
 
         .balance {
             text-align: right;
@@ -21,9 +23,23 @@
             }
         }
 
+        .address {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 108%;
+            display: inline-block;
+            cursor: pointer;
+        }
+
         .signOut {
             margin: auto;
             display: block;
+            cursor: pointer;
+
+            &:hover {
+                color: #1d4ed8;
+            }
         }
     }
 
